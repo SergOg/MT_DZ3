@@ -22,7 +22,6 @@ import java.math.RoundingMode
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
-    //    private val compositeDisposable = CompositeDisposable()
     private val viewModel by lazy {
         ViewModelProvider(this)[WeatherViewModel::class.java]
     }
