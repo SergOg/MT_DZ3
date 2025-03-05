@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -22,7 +23,7 @@ class MainActivity : AppCompatActivity() {
     private val viewModel by lazy {
         ViewModelProvider(this)[WeatherViewModel::class.java]
     }
-    private val scope = CoroutineScope(Dispatchers.IO)
+//    private val scope = CoroutineScope(Dispatchers.IO)
     private var searchJob: Job? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,11 +31,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val viewModel = ViewModelProvider(this).get(WeatherViewModel::class.java)
-
         binding.button.setOnClickListener {
             searchJob?.cancel()
-            searchJob = scope.launch {
+            searchJob = lifecycleScope.launch {
                 val respons = viewModel.fetchWeather("Moscow")
                 withContext(Dispatchers.Main) {
                     showWeatherData(respons)
@@ -60,7 +59,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
-        scope.cancel()
+//        scope.cancel()
         super.onDestroy()
     }
 }
