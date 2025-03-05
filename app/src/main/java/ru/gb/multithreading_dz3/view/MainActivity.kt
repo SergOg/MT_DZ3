@@ -43,18 +43,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showWeatherData(weather: WeatherResponse) {
+        val city = getString(R.string.city)
+        val temperature = getString(R.string.temperature)
+        val feels_like = getString(R.string.feels_like)
+        val pressure = getString(R.string.pressure)
+        val humidity = getString(R.string.humidity)
         findViewById<TextView>(R.id.weather_text_view).text =
             """
-            ${R.string.city} ${weather.name}
-            Температура: ${
-                (weather.main.temp - 273).toBigDecimal().setScale(1, RoundingMode.UP).toDouble()
-            }°C
-            Ощущается как: ${
-                (weather.main.feels_like - 273).toBigDecimal().setScale(1, RoundingMode.UP)
-                    .toDouble()
-            }°C
-            Давление: ${weather.main.pressure} hPa
-            Влажность: ${weather.main.humidity}%
+            ${city} ${weather.name}
+            ${temperature} ${
+                (weather.main.temp - 273).toBigDecimal().setScale(1, RoundingMode.UP).toDouble()}°C
+            ${feels_like} ${
+                (weather.main.feels_like - 273).toBigDecimal().setScale(1, RoundingMode.UP).toDouble()}°C
+            ${pressure} ${weather.main.pressure} hPa
+            ${humidity} ${weather.main.humidity}%
             """.trimIndent()
     }
 
