@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
     private fun showWeatherData(weather: WeatherResponse) {
         findViewById<TextView>(R.id.weather_text_view).text =
             """
-            Город: ${weather.name}
+            ${R.string.city} ${weather.name}
             Температура: ${
                 (weather.main.temp - 273).toBigDecimal().setScale(1, RoundingMode.UP).toDouble()
             }°C
